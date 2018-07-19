@@ -14,5 +14,6 @@
     ```
 3. Open `<root directory>/build/reports/allure/index.html` in any modern browser.
 
-### Possible issues
-1. OAuth token may be expired/invalidated. Tests expect OAuth token for particular user which has special disk state.
+### Notes
+1. One test always fails. It is done on purpose to demonstrate failed test case in Allure report.
+2. OAuth token may be expired/invalidated. Tests expect OAuth token for particular user which has special disk state. OAuth token for another user won't fix tests.
