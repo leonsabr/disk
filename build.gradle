@@ -1,0 +1,55 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "ru.d10xa:gradle-allure-plugin:0.5.5"
+    }
+}
+
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.2.51"
+}
+
+apply plugin: "ru.d10xa.allure"
+
+allure {
+    allureVersion = "1.4.23"
+    aspectjVersion = "1.8.10"
+    aspectjweaver = true
+    allureResultsDir = "$buildDir/allure-results"
+    allureReportDir = "$buildDir/reports/allure"
+}
+
+group 'ru.leonsabr'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    agent
+}
+
+dependencies {
+    agent "org.aspectj:aspectjweaver:1.8.10"
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    testCompile "junit:junit:4.12"
+    testCompile "io.rest-assured:rest-assured:3.1.0"
+    testCompile "ru.yandex.qatools.allure:allure-junit-adaptor:1.4.23"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+test {
+    ignoreFailures = true
+    finalizedBy allureReport
+}
